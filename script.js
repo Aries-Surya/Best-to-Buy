@@ -1,9 +1,9 @@
 // JavaScript functionalities for interactivity
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Image pop-up (lightbox) functionality
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
+    // Image pop-up (lightbox) functionality limited to product images only
+    const productImages = document.querySelectorAll('.product-item img, #featured-image');
+    productImages.forEach(img => {
         img.style.cursor = 'pointer';
         img.addEventListener('click', () => {
             openLightbox(img.src, img.alt);
@@ -46,30 +46,20 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(overlay);
     }
 
-    // Product images array for featured product
-    const productImages = [
-        "https://m.media-amazon.com/images/I/51oMWaW7tKL._SL1500_.jpg",
-        "https://m.media-amazon.com/images/I/61Z9q6q6JPL._SL1500_.jpg",
-        "https://m.media-amazon.com/images/I/71vZ9Q6q6JPL._SL1500_.jpg"
-    ];
+    // Remove product image carousel code due to missing nextArrow element
 
-    let currentImageIndex = 0;
-
-    const featuredImage = document.getElementById('featured-image');
-    const nextArrow = document.getElementById('next-arrow');
-
-    nextArrow.addEventListener('click', () => {
-        currentImageIndex = (currentImageIndex + 1) % productImages.length;
-        featuredImage.src = productImages[currentImageIndex];
-        featuredImage.alt = `Featured Product Image Angle ${currentImageIndex + 1}`;
+    // Basic affiliate link click tracking (console log) using event delegation
+    document.body.addEventListener('click', (event) => {
+        const target = event.target;
+        if (target.matches('a.btn')) {
+            console.log(`Affiliate link clicked: ${target.href}`);
+            // Here you can add analytics tracking code if needed
+        }
     });
 
-    // Basic affiliate link click tracking (console log)
-    const affiliateLinks = document.querySelectorAll('a.btn');
-    affiliateLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            console.log(`Affiliate link clicked: ${link.href}`);
-            // Here you can add analytics tracking code if needed
-        });
+    // Dark mode toggle event listener inside DOMContentLoaded
+    const checkbox = document.getElementById("checkbox");
+    checkbox.addEventListener("change", () => {
+        document.body.classList.toggle("dark");
     });
 });

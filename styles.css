@@ -6,22 +6,34 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Montserrat", Arial, sans-serif;
     line-height: 1.6;
     background-color: #f9f9f9;
     color: #333;
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0;
+    transition: background 0.2s linear, color 0.2s linear;
+    position: relative;
 }
 
 header {
     text-align: center;
     margin-bottom: 30px;
+    width: 100%;
+    position: relative;
 }
 
 header h1 {
     font-size: 2.5rem;
     color: #FF9900;
     /* Amazon orange */
+    transition: color 0.2s linear;
 }
 
 nav {
@@ -40,6 +52,7 @@ main {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-bottom: 40px;
+    transition: background-color 0.2s linear, box-shadow 0.2s linear;
 }
 
 #featured-product img {
@@ -58,12 +71,14 @@ main {
 #featured-product h2 {
     margin: 15px 0 10px;
     font-size: 1.8rem;
+    transition: color 0.2s linear;
 }
 
 #featured-product p {
     font-size: 1rem;
     color: #555;
     margin-bottom: 20px;
+    transition: color 0.2s linear;
 }
 
 .btn {
@@ -76,7 +91,8 @@ main {
     font-weight: bold;
     transition: background-color 0.3s ease;
     align-self: center;
-    width: 240px; /* Fixed width for button */
+    width: 240px;
+    /* Fixed width for button */
     text-align: center;
 }
 
@@ -89,6 +105,7 @@ main {
     margin-bottom: 20px;
     text-align: center;
     color: #222;
+    transition: color 0.2s linear;
 }
 
 .product-grid {
@@ -101,9 +118,10 @@ main {
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px 15px 30px 15px; /* Increased bottom padding for button spacing */
+    padding: 20px 15px 30px 15px;
+    /* Increased bottom padding for button spacing */
     text-align: center;
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease, background-color 0.2s linear;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -130,12 +148,14 @@ main {
     margin: 15px 0 10px;
     font-size: 1.2rem;
     color: #333;
+    transition: color 0.2s linear;
 }
 
 .price {
     font-size: 1.1rem;
     color: #FF9900;
     margin-bottom: 15px;
+    transition: color 0.2s linear;
 }
 
 footer {
@@ -144,6 +164,7 @@ footer {
     color: #777;
     padding: 10px 0;
     border-top: 1px solid #ddd;
+    transition: color 0.2s linear, border-color 0.2s linear;
 }
 
 footer p {
@@ -151,6 +172,51 @@ footer p {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Position toggle button top right */
+.checkbox-label {
+    background-color: #111;
+    width: 50px;
+    height: 26px;
+    border-radius: 50px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.checkbox {
+    opacity: 0;
+    position: absolute;
+}
+
+.fa-moon {
+    color: #f1c40f;
+}
+
+.fa-sun {
+    color: #f39c12;
+}
+
+.checkbox-label .ball {
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+    transform: translateX(24px);
 }
 
 @media (max-width: 600px) {
@@ -169,4 +235,30 @@ footer p {
     #product-list h2 {
         font-size: 1.5rem;
     }
+}
+
+/* Dark mode styles */
+body.dark {
+    background-color: #121417;
+    color: #e4e6eb;
+}
+
+body.dark header h1 {
+    color: #ffb347;
+}
+
+body.dark #featured-product article,
+body.dark .product-item {
+    background-color: #1e2128;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark #featured-product h2,
+body.dark #featured-product p,
+body.dark #product-list h2,
+body.dark .product-item h3,
+body.dark .price,
+body.dark footer,
+body.dark footer p {
+    color: #e4e6eb;
 }
