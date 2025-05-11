@@ -174,15 +174,20 @@ footer p {
     align-items: center;
 }
 
-/* Position toggle button top right */
+/* Toggle container visible only on desktop */
+.toggle-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Toggle UI styles */
 .checkbox-label {
     background-color: #111;
     width: 50px;
     height: 26px;
     border-radius: 50px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: relative;
     padding: 5px;
     cursor: pointer;
     display: flex;
@@ -222,10 +227,13 @@ footer p {
 @media (max-width: 600px) {
     body {
         padding: 10px;
+        background-color: #121417;
+        color: #e4e6eb;
     }
 
     header h1 {
         font-size: 1.8rem;
+        color: #ffb347;
     }
 
     #featured-product h2 {
@@ -235,9 +243,30 @@ footer p {
     #product-list h2 {
         font-size: 1.5rem;
     }
+
+    #featured-product article,
+    .product-item {
+        background-color: #1e2128;
+        box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    }
+
+    #featured-product h2,
+    #featured-product p,
+    #product-list h2,
+    .product-item h3,
+    .price,
+    footer,
+    footer p {
+        color: #e4e6eb;
+    }
+
+    /* Hide toggle container on mobile */
+    .toggle-container {
+        display: none;
+    }
 }
 
-/* Dark mode styles */
+/* Dark mode styles for desktop when body has dark class */
 body.dark {
     background-color: #121417;
     color: #e4e6eb;
@@ -261,4 +290,31 @@ body.dark .price,
 body.dark footer,
 body.dark footer p {
     color: #e4e6eb;
+}
+
+/* Scroll to top button styles */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 100;
+    background-color: #FF9900;
+    color: white;
+    border: none;
+    outline: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #e68a00;
+    opacity: 0.85;
 }
