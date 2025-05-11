@@ -1,94 +1,66 @@
-// JavaScript functionalities for interactivity
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Image pop-up (lightbox) functionality limited to product images only
-  const productImages = document.querySelectorAll(
-    ".product-item img, #featured-image"
-  );
-  productImages.forEach((img) => {
-    img.style.cursor = "pointer";
-    img.addEventListener("click", () => {
-      openLightbox(img.src, img.alt);
-    });
-  });
+    // Lightbox functionality
+    const productImages = document.querySelectorAll(".product-item img, #featured-image");
+    productImages.forEach((img) => {
+        img.addEventListener("click", () => {
+            const overlay = document.createElement("div");
+            overlay.id = "lightbox-overlay";
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0,0,0,0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                cursor: pointer;
+            `;
 
-  // Function to create and show lightbox
-  function openLightbox(src, alt) {
-    // Create overlay
-    const overlay = document.createElement("div");
-    overlay.id = "lightbox-overlay";
-    overlay.style.position = "fixed";
-    overlay.style.top = 0;
-    overlay.style.left = 0;
-    overlay.style.width = "100vw";
-    overlay.style.height = "100vh";
-    overlay.style.backgroundColor = "rgba(0,0,0,0.8)";
-    overlay.style.display = "flex";
-    overlay.style.justifyContent = "center";
-    overlay.style.alignItems = "center";
-    overlay.style.zIndex = 1000;
-    overlay.style.cursor = "pointer";
+            const lightboxImage = document.createElement("img");
+            lightboxImage.src = img.src;
+            lightboxImage.alt = img.alt;
+            lightboxImage.style.cssText = `
+                max-width: 90%;
+                max-height: 90%;
+                border-radius: 8px;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            `;
 
-    // Create image element
-    const lightboxImage = document.createElement("img");
-    lightboxImage.src = src;
-    lightboxImage.alt = alt;
-    lightboxImage.style.maxWidth = "90%";
-    lightboxImage.style.maxHeight = "90%";
-    lightboxImage.style.borderRadius = "8px";
-    lightboxImage.style.boxShadow = "0 0 20px rgba(255, 255, 255, 0.5)";
-
-    overlay.appendChild(lightboxImage);
-
-    // Close lightbox on click
-    overlay.addEventListener("click", () => {
-      document.body.removeChild(overlay);
+            overlay.appendChild(lightboxImage);
+            overlay.addEventListener("click", () => document.body.removeChild(overlay));
+            document.body.appendChild(overlay);
+        });
     });
 
-    document.body.appendChild(overlay);
-  }
+    // Dark mode persistence
+    const checkbox = document.getElementById("checkbox");
+    const darkMode = localStorage.getItem('darkMode') === 'true';
+    
+    document.body.classList.toggle("dark", darkMode);
+    checkbox.checked = darkMode;
 
-  // Basic affiliate link click tracking (console log) using event delegation
-  document.body.addEventListener("click", (event) => {
-    const target = event.target;
-    if (target.matches("a.btn")) {
-      console.log(`Affiliate link clicked: ${target.href}`);
-      // Here you can add analytics tracking code if needed
-    }
-  });
-
-  // Dark mode toggle event listener inside DOMContentLoaded
-  const checkbox = document.getElementById("checkbox");
-  checkbox.addEventListener("change", () => {
-    document.body.classList.toggle("dark");
-  });
-
-  // Sync checkbox state with current theme on page load
-  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    document.body.classList.add("dark");
-    checkbox.checked = true;
-  } else {
-    document.body.classList.remove("dark");
-    checkbox.checked = false;
-  }
-
-  // Scroll to top button functionality
-  const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-
-  // Show or hide the button based on scroll position
-  window.addEventListener("scroll", () => {
-    if (window.pageYOffset > 100) {
-      scrollToTopBtn.style.display = "flex";
-    } else {
-      scrollToTopBtn.style.display = "none";
-    }
-  });
-
-  // Scroll smoothly to top when button is clicked
-  scrollToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+    checkbox.addEventListener("change", () => {
+        document.body.classList.toggle("dark");
+        localStorage.setItem('darkMode', checkbox.checked);
     });
-  });
+
+    // Scroll to top button
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    window.addEventListener("scroll", () => {
+        scrollToTopBtn.style.display = window.pageYOffset > 100 ? "flex" : "none";
+    });
+
+    scrollToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Affiliate link tracking
+    document.body.addEventListener("click", (event) => {
+        if (event.target.matches("a.btn")) {
+            console.log(`Affiliate link clicked: ${event.target.href}`);
+        }
+    });
 });

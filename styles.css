@@ -1,4 +1,3 @@
-/* Reset some default styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -26,163 +25,23 @@ header {
     text-align: center;
     margin-bottom: 30px;
     width: 100%;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 header h1 {
     font-size: 2.5rem;
     color: #FF9900;
-    /* Amazon orange */
     transition: color 0.2s linear;
 }
 
-nav {
-    margin-top: 10px;
-}
-
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-#featured-product article {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-bottom: 40px;
-    transition: background-color 0.2s linear, box-shadow 0.2s linear;
-}
-
-#featured-product img {
-    max-width: 100%;
-    max-width: 400px;
-    height: auto;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-#featured-product img:hover {
-    transform: scale(1.05);
-}
-
-#featured-product h2 {
-    margin: 15px 0 10px;
-    font-size: 1.8rem;
-    transition: color 0.2s linear;
-}
-
-#featured-product p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 20px;
-    transition: color 0.2s linear;
-}
-
-.btn {
-    margin-top: 10px;
-    display: inline-block;
-    background-color: #FF9900;
-    color: #fff;
-    padding: 12px 25px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    align-self: center;
-    width: 240px;
-    /* Fixed width for button */
-    text-align: center;
-}
-
-.btn:hover {
-    background-color: #e68a00;
-}
-
-#product-list h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #222;
-    transition: color 0.2s linear;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.product-item {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px 15px 30px 15px;
-    /* Increased bottom padding for button spacing */
-    text-align: center;
-    transition: box-shadow 0.3s ease, background-color 0.2s linear;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-}
-
-.product-item:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.product-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.product-item img:hover {
-    transform: scale(1.05);
-}
-
-.product-item h3 {
-    margin: 15px 0 10px;
-    font-size: 1.2rem;
-    color: #333;
-    transition: color 0.2s linear;
-}
-
-.price {
-    font-size: 1.1rem;
-    color: #FF9900;
-    margin-bottom: 15px;
-    transition: color 0.2s linear;
-}
-
-footer {
-    margin-top: 50px;
-    font-size: 0.9rem;
-    color: #777;
-    padding: 10px 0;
-    border-top: 1px solid #ddd;
-    transition: color 0.2s linear, border-color 0.2s linear;
-}
-
-footer p {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Toggle container visible only on desktop */
 .toggle-container {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: relative;
 }
 
-/* Toggle UI styles */
 .checkbox-label {
     background-color: #111;
     width: 50px;
@@ -195,11 +54,6 @@ footer p {
     justify-content: space-between;
     align-items: center;
     z-index: 100;
-}
-
-.checkbox {
-    opacity: 0;
-    position: absolute;
 }
 
 .fa-moon {
@@ -225,60 +79,169 @@ footer p {
     transform: translateX(24px);
 }
 
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+#featured-product article {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    transition: background-color 0.2s linear, box-shadow 0.2s linear;
+}
+
+#featured-product img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    padding: 10px;
+}
+
+#featured-product h2 {
+    margin: 15px 0 10px;
+    font-size: 1.8rem;
+    transition: color 0.2s linear;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #FF9900;
+    color: #fff;
+    padding: 12px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 280px;
+    margin: 15px auto 0;
+    min-height: 44px;
+}
+
+.btn:hover {
+    background-color: #e68a00;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.product-item {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    transition: box-shadow 0.3s ease, background-color 0.2s linear;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    contain: layout paint style;
+    margin: 5px;
+}
+
+.product-item img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.product-item h3 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #333;
+    transition: color 0.2s linear;
+}
+
+footer {
+    margin-top: 50px;
+    font-size: 0.9rem;
+    color: #777;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    transition: color 0.2s linear, border-color 0.2s linear;
+    width: 100%;
+}
+
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    z-index: 100;
+    background-color: #FF9900;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
 @media (max-width: 600px) {
     body {
-        padding: 10px;
-        background-color: #121417;
-        color: #e4e6eb;
+        padding: 15px;
     }
 
     header {
-        width: 100% !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
+        flex-direction: column;
+        gap: 15px;
     }
 
     header h1 {
-        font-size: 1.8rem;
-        color: #ffb347;
-        margin: 0 !important;
-        width: auto !important;
-        text-align: center !important;
+        font-size: 1.5rem;
+        line-height: 1.3;
+        padding: 0 15px;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    #featured-product article {
+        padding: 15px;
+        margin-bottom: 25px;
     }
 
     #featured-product h2 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
 
-    #product-list h2 {
-        font-size: 1.5rem;
-    }
-
-    #featured-product article,
     .product-item {
-        background-color: #1e2128;
-        box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+        padding: 15px;
     }
 
-    #featured-product h2,
-    #featured-product p,
-    #product-list h2,
-    .product-item h3,
-    .price,
-    footer,
-    footer p {
-        color: #e4e6eb;
+    .product-item h3 {
+        font-size: 1.1rem;
     }
 
-    /* Hide toggle container on mobile */
-    .toggle-container {
-        display: none;
+    .btn {
+        font-size: 0.9rem;
     }
 }
 
-/* Dark mode styles for desktop when body has dark class */
+/* Dark mode styles */
 body.dark {
     background-color: #121417;
     color: #e4e6eb;
@@ -298,35 +261,6 @@ body.dark #featured-product h2,
 body.dark #featured-product p,
 body.dark #product-list h2,
 body.dark .product-item h3,
-body.dark .price,
-body.dark footer,
-body.dark footer p {
+body.dark footer {
     color: #e4e6eb;
-}
-
-/* Scroll to top button styles */
-#scrollToTopBtn {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    z-index: 100;
-    background-color: #FF9900;
-    color: white;
-    border: none;
-    outline: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 22px;
-    display: none; /* Hidden by default */
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease, opacity 0.3s ease;
-}
-
-#scrollToTopBtn:hover {
-    background-color: #e68a00;
-    opacity: 0.85;
 }
