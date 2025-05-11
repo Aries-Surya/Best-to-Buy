@@ -46,12 +46,23 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(overlay);
     }
 
-    // Placeholder for product slider/carousel functionality
-    // This can be implemented later or with a library if needed
+    // Product images array for featured product
+    const productImages = [
+        "https://m.media-amazon.com/images/I/51oMWaW7tKL._SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/61Z9q6q6JPL._SL1500_.jpg",
+        "https://m.media-amazon.com/images/I/71vZ9Q6q6JPL._SL1500_.jpg"
+    ];
 
-    // Placeholder for dynamic content loading from JSON or API
+    let currentImageIndex = 0;
 
-    // Placeholder for smooth scroll if navigation is added
+    const featuredImage = document.getElementById('featured-image');
+    const nextArrow = document.getElementById('next-arrow');
+
+    nextArrow.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex + 1) % productImages.length;
+        featuredImage.src = productImages[currentImageIndex];
+        featuredImage.alt = `Featured Product Image Angle ${currentImageIndex + 1}`;
+    });
 
     // Basic affiliate link click tracking (console log)
     const affiliateLinks = document.querySelectorAll('a.btn');
