@@ -82,6 +82,7 @@ main {
 }
 
 .btn {
+    margin-top: 10px;
     display: inline-block;
     background-color: #FF9900;
     color: #fff;
