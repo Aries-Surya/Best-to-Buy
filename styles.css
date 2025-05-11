@@ -232,9 +232,20 @@ footer p {
         color: #e4e6eb;
     }
 
+    header {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+
     header h1 {
         font-size: 1.8rem;
         color: #ffb347;
+        margin: 0 !important;
+        width: auto !important;
+        text-align: center !important;
     }
 
     #featured-product h2 {
