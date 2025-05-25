@@ -41,7 +41,8 @@ header h1 {
 .checkbox {
     opacity: 0;
     position: absolute;
-    left: -9999px; /* Move off-screen */
+    left: -9999px;
+    /* Move off-screen */
 }
 
 .toggle-container {
@@ -82,7 +83,7 @@ header h1 {
     transition: transform 0.2s linear;
 }
 
-.checkbox:checked + .checkbox-label .ball {
+.checkbox:checked+.checkbox-label .ball {
     transform: translateX(24px);
 }
 
@@ -205,16 +206,18 @@ footer {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-@media (min-width: 601px){
+@media (min-width: 601px) {
     .toggle-container {
         position: absolute;
         top: 20px;
         right: 20px;
         margin: 0;
     }
+
     header {
         position: relative;
-        padding-top: 15px; /* Add space for absolute positioning */
+        padding-top: 15px;
+        /* Add space for absolute positioning */
     }
 }
 
@@ -236,7 +239,8 @@ footer {
     }
 
     .toggle-container {
-        position: static; /* Keep in document flow */
+        position: static;
+        /* Keep in document flow */
         margin-top: 15px;
     }
 
@@ -289,4 +293,17 @@ body.dark #product-list h2,
 body.dark .product-item h3,
 body.dark footer {
     color: #e4e6eb;
+}
+
+.telegram-header-link .telegram-link {
+    color: #0088cc;
+    font-weight: 600;
+    font-size: 1.1em;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.telegram-header-link .telegram-link:hover {
+    color: #005f8c;
+    text-decoration: underline;
 }
