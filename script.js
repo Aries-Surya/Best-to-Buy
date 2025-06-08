@@ -1,11 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Lightbox functionality
-    const productImages = document.querySelectorAll(".product-item img, #featured-image");
-    productImages.forEach((img) => {
-        img.addEventListener("click", () => {
-            const overlay = document.createElement("div");
-            overlay.id = "lightbox-overlay";
-            overlay.style.cssText = `
+  // Automatically assign unique IDs to each product-item
+  const products = document.querySelectorAll(".product-item");
+  products.forEach((item, idx) => {
+    item.id = "product-" + (idx + 1);
+  });
+
+  // Scroll to product if hash is present in URL
+  if (window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
+  // Lightbox functionality
+  const productImages = document.querySelectorAll(
+    ".product-item img, #featured-image"
+  );
+  productImages.forEach((img) => {
+    img.addEventListener("click", () => {
+      const overlay = document.createElement("div");
+      overlay.id = "lightbox-overlay";
+      overlay.style.cssText = `
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -19,48 +35,50 @@ document.addEventListener("DOMContentLoaded", () => {
                 cursor: pointer;
             `;
 
-            const lightboxImage = document.createElement("img");
-            lightboxImage.src = img.src;
-            lightboxImage.alt = img.alt;
-            lightboxImage.style.cssText = `
+      const lightboxImage = document.createElement("img");
+      lightboxImage.src = img.src;
+      lightboxImage.alt = img.alt;
+      lightboxImage.style.cssText = `
                 max-width: 90%;
                 max-height: 90%;
                 border-radius: 8px;
                 box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
             `;
 
-            overlay.appendChild(lightboxImage);
-            overlay.addEventListener("click", () => document.body.removeChild(overlay));
-            document.body.appendChild(overlay);
-        });
+      overlay.appendChild(lightboxImage);
+      overlay.addEventListener("click", () =>
+        document.body.removeChild(overlay)
+      );
+      document.body.appendChild(overlay);
     });
+  });
 
-    // Dark mode persistence
-    const checkbox = document.getElementById("checkbox");
-    const darkMode = localStorage.getItem('darkMode') === 'true';
-    
-    document.body.classList.toggle("dark", darkMode);
-    checkbox.checked = darkMode;
+  // Dark mode persistence
+  const checkbox = document.getElementById("checkbox");
+  const darkMode = localStorage.getItem("darkMode") === "true";
 
-    checkbox.addEventListener("change", () => {
-        document.body.classList.toggle("dark");
-        localStorage.setItem('darkMode', checkbox.checked);
-    });
+  document.body.classList.toggle("dark", darkMode);
+  checkbox.checked = darkMode;
 
-    // Scroll to top button
-    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-    window.addEventListener("scroll", () => {
-        scrollToTopBtn.style.display = window.pageYOffset > 100 ? "flex" : "none";
-    });
+  checkbox.addEventListener("change", () => {
+    document.body.classList.toggle("dark");
+    localStorage.setItem("darkMode", checkbox.checked);
+  });
 
-    scrollToTopBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+  // Scroll to top button
+  const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+  window.addEventListener("scroll", () => {
+    scrollToTopBtn.style.display = window.pageYOffset > 100 ? "flex" : "none";
+  });
 
-    // Affiliate link tracking
-    document.body.addEventListener("click", (event) => {
-        if (event.target.matches("a.btn")) {
-            console.log(`Affiliate link clicked: ${event.target.href}`);
-        }
-    });
+  scrollToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  // Affiliate link tracking
+  document.body.addEventListener("click", (event) => {
+    if (event.target.matches("a.btn")) {
+      console.log(`Affiliate link clicked: ${event.target.href}`);
+    }
+  });
 });
