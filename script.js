@@ -5,11 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
     item.id = "product-" + (idx + 1);
   });
 
-  // Scroll to product if hash is present in URL
+  // Scroll to product if hash is present in URL and highlight it
   if (window.location.hash) {
     const target = document.querySelector(window.location.hash);
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
+      target.classList.add("highlighted-product");
+      setTimeout(() => {
+        target.classList.remove("highlighted-product");
+      }, 2500); // Highlight for 2.5 seconds
     }
   }
 

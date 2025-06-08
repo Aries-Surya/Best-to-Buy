@@ -307,3 +307,17 @@ body.dark footer {
     color: #005f8c;
     text-decoration: underline;
 }
+
+/* Highlighted product style */
+.highlighted-product {
+    box-shadow: 0 0 0 4px #ffd700, 0 0 20px 8px #fffbe6;
+    background: #fffbe6;
+    transition: box-shadow 0.3s, background 0.3s;
+    z-index: 2;
+    position: relative;
+}
+
+body.dark .highlighted-product {
+    box-shadow: 0 0 0 4px #ffd700, 0 0 20px 8px #2d2a00;
+    background: #2d2a00;
+}
