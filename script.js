@@ -237,7 +237,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!item.querySelector(".share-link")) {
         const shareLink = document.createElement("a");
         shareLink.className = "share-link";
-        shareLink.href = `http://127.0.0.1:5500/index.html#${id}`;
+        // Make share link dynamic based on current domain and path
+        shareLink.href = `${
+          window.location.origin + window.location.pathname
+        }#${id}`;
         shareLink.innerHTML = '<i class="fas fa-link"></i>';
         shareLink.addEventListener("click", function (e) {
           e.preventDefault();
