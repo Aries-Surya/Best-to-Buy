@@ -53,26 +53,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Featured products slider
-  const featuredSlides = [
-    {
-      title: "OnePlus Nord Buds 2r",
-      desc: "True Wireless in Ear Earbuds with Mic, 12.4mm Drivers, Playback:Upto 38hr case,4-Mic Design, IP55 Rating",
-      image: "https://m.media-amazon.com/images/I/51oMWaW7tKL._SL1500_.jpg",
-      link: "https://amzn.to/4d8CNFU",
-    },
-    {
-      title: "Weight Machine for Kitchen",
-      desc: "Digital Scale with LCD Display, Scale for Home Baking, Cooking & Balance Diet. Weighing Machine with capacity 10Kg with back light",
-      image: "https://m.media-amazon.com/images/I/61R3VKYEwlL._SL1100_.jpg",
-      link: "https://amzn.to/43eDESg",
-    },
-    {
-      title: "HP Laserjet Pro P1108 Plus Laser Printer",
-      desc: "Bluetooth 5.0 Wireless Gaming Headphones with RGB Lights, Dual 40mm Drivers, 3.5mm Aux, USB-C Charging, Mic, 30 Hours Playtime",
-      image: "https://m.media-amazon.com/images/I/71KgNbsM3-L._SL1500_.jpg",
-      link: "https://amzn.to/3ZcK8ij",
-    },
-  ];
+  // Build featuredSlides dynamically from all .product-item elements
+  function getAllProductSlides() {
+    return Array.from(document.querySelectorAll(".product-item")).map(
+      (item) => {
+        const img = item.querySelector(".product-image img");
+        const title = item.querySelector(".product-content h3");
+        const desc = item.querySelector(".product-content p");
+        const link = item.querySelector(".product-content .btn");
+        return {
+          title: title ? title.textContent.trim() : "",
+          desc: desc ? desc.textContent.trim() : "",
+          image: img ? img.src : "",
+          link: link ? link.href : "",
+        };
+      }
+    );
+  }
+  let featuredSlides = getAllProductSlides();
 
   let currentSlide = 0;
   const featuredImage = document.querySelector(".featured-image img");
