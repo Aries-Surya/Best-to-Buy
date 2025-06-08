@@ -296,6 +296,7 @@ main {
     display: flex;
     flex-direction: column;
     height: 100%;
+    position: relative;
 }
 
 .product-item:hover {
@@ -360,6 +361,31 @@ main {
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
+}
+
+.share-link {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    background: var(--light);
+    color: var(--primary);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.share-link:hover {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(255, 107, 53, 0.18);
 }
 
 /* Footer */

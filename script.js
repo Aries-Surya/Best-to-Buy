@@ -80,6 +80,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const featuredDesc = document.querySelector(".featured-content p");
   const featuredLink = document.querySelector(".featured-content .btn");
 
+  // Add share link to featured-container for current featured product
+  const featuredContainer = document.querySelector(".featured-container");
+  if (featuredContainer && !featuredContainer.querySelector(".share-link")) {
+    const shareLink = document.createElement("a");
+    shareLink.className = "share-link";
+    // Initially set to first featured product anchor link
+    const getAnchorLink = (title) =>
+      `${window.location.origin + window.location.pathname}#${title
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "")}`;
+    shareLink.href = getAnchorLink(featuredSlides[0].title);
+    shareLink.innerHTML = '<i class="fas fa-link"></i>';
+    shareLink.style.position = "absolute";
+    shareLink.style.top = "18px";
+    shareLink.style.right = "18px";
+    shareLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      const current = featuredSlides[currentSlide];
+      const anchorLink = getAnchorLink(current.title);
+      navigator.clipboard.writeText(anchorLink).then(() => {
+        if (typeof showToast === "function") {
+          showToast(`Link for \"${current.title}\" copied to clipboard!`);
+        } else {
+          alert(`Link for \"${current.title}\" copied to clipboard!`);
+        }
+      });
+    });
+    featuredContainer.style.position = "relative";
+    featuredContainer.appendChild(shareLink);
+  }
+
+  // Update share link in featured-container on slide change
+  function updateFeaturedShareLink() {
+    const shareLink = featuredContainer.querySelector(".share-link");
+    if (shareLink) {
+      const anchorLink = `${
+        window.location.origin + window.location.pathname
+      }#${featuredSlides[currentSlide].title
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "")}`;
+      shareLink.href = anchorLink;
+    }
+  }
+
   function updateFeaturedSlide() {
     const slide = featuredSlides[currentSlide];
     featuredImage.src = slide.image;
@@ -87,6 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
     featuredTitle.textContent = slide.title;
     featuredDesc.textContent = slide.desc;
     featuredLink.href = slide.link;
+    updateFeaturedShareLink();
   }
 
   // Auto slideshow logic
@@ -174,4 +223,37 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   window.addEventListener("scroll", handleHeaderScroll);
   window.addEventListener("resize", handleHeaderScroll);
+
+  // Auto-generate product id and share link for each product
+  document.querySelectorAll(".product-item").forEach((item) => {
+    const h3 = item.querySelector("h3");
+    if (h3) {
+      // Generate id: lowercase, replace spaces and non-alphanumerics with hyphens
+      const id = h3.textContent
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+      item.id = id;
+      // Add share link icon if not present
+      if (!item.querySelector(".share-link")) {
+        const shareLink = document.createElement("a");
+        shareLink.className = "share-link";
+        shareLink.href = `http://127.0.0.1:5500/index.html#${id}`;
+        shareLink.innerHTML = '<i class="fas fa-link"></i>';
+        shareLink.addEventListener("click", function (e) {
+          e.preventDefault();
+          navigator.clipboard.writeText(shareLink.href).then(() => {
+            if (typeof showToast === "function") {
+              showToast("Product link copied!");
+            } else {
+              // fallback toast
+              alert("Product link copied!");
+            }
+          });
+        });
+        item.insertBefore(shareLink, item.firstChild);
+      }
+    }
+  });
 });
