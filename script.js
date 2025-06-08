@@ -3,11 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const checkbox = document.getElementById("checkbox");
   const body = document.body;
 
-  // Load dark mode preference from localStorage
-  const darkMode = localStorage.getItem("darkMode") === "true";
-  if (darkMode) {
+  // Set dark mode as default unless user has a saved preference
+  let darkMode = localStorage.getItem("darkMode");
+  if (darkMode === null) {
     body.classList.add("dark");
     checkbox.checked = true;
+    localStorage.setItem("darkMode", true);
+  } else if (darkMode === "true") {
+    body.classList.add("dark");
+    checkbox.checked = true;
+  } else {
+    body.classList.remove("dark");
+    checkbox.checked = false;
   }
 
   checkbox.addEventListener("change", () => {
@@ -82,15 +89,31 @@ document.addEventListener("DOMContentLoaded", () => {
     featuredLink.href = slide.link;
   }
 
+  // Auto slideshow logic
+  let autoSlideInterval = setInterval(() => {
+    currentSlide = (currentSlide + 1) % featuredSlides.length;
+    updateFeaturedSlide();
+  }, 4000);
+
+  function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => {
+      currentSlide = (currentSlide + 1) % featuredSlides.length;
+      updateFeaturedSlide();
+    }, 4000);
+  }
+
   document.getElementById("next-featured").addEventListener("click", () => {
     currentSlide = (currentSlide + 1) % featuredSlides.length;
     updateFeaturedSlide();
+    resetAutoSlide();
   });
 
   document.getElementById("prev-featured").addEventListener("click", () => {
     currentSlide =
       (currentSlide - 1 + featuredSlides.length) % featuredSlides.length;
     updateFeaturedSlide();
+    resetAutoSlide();
   });
 
   // Initialize
@@ -127,4 +150,28 @@ document.addEventListener("DOMContentLoaded", () => {
       showToast(`Link for "${productName}" copied to clipboard!`);
     });
   });
+
+  // Hide header on scroll down (mobile only)
+  let lastScrollTop = 0;
+  const header = document.querySelector("header");
+  function handleHeaderScroll() {
+    if (window.innerWidth > 992) {
+      header.style.transform = "";
+      header.style.transition = "";
+      return;
+    }
+    let st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st > lastScrollTop && st > 60) {
+      // Scroll down
+      header.style.transform = "translateY(-100%)";
+      header.style.transition = "transform 0.3s";
+    } else {
+      // Scroll up
+      header.style.transform = "translateY(0)";
+      header.style.transition = "transform 0.3s";
+    }
+    lastScrollTop = st <= 0 ? 0 : st;
+  }
+  window.addEventListener("scroll", handleHeaderScroll);
+  window.addEventListener("resize", handleHeaderScroll);
 });

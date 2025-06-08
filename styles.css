@@ -42,7 +42,8 @@ body {
 }
 
 body.dark {
-    background-color: #121417;
+    background-color: var(--dark);
+    color: var(--light);
 }
 
 /* Header Styles */
