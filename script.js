@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const shareLink = document.createElement("a");
         shareLink.className = "share-link";
         // Make share link dynamic based on current page URL (without hash)
-        shareLink.href = `${window.location.href.split("#")[0]}#${id}`;
+        shareLink.href = `${window.location.origin}${window.location.pathname}#${id}`;
         shareLink.innerHTML = '<i class="fas fa-link"></i>';
         shareLink.addEventListener("click", function (e) {
           e.preventDefault();
