@@ -23,4 +23,4 @@ def main(csv_path):
 
 
 if __name__ == "__main__":
-    main("products.csv")
+    main("./tools/products.csv")
