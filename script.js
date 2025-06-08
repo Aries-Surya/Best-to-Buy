@@ -256,4 +256,30 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+
+  // --- Highlight product on hash navigation ---
+  function highlightProductFromHash() {
+    // Remove highlight from any previously highlighted product
+    document.querySelectorAll(".highlighted-product").forEach((el) => {
+      el.classList.remove("highlighted-product");
+    });
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+      const id = hash.slice(1);
+      const product = document.getElementById(id);
+      if (product && product.classList.contains("product-item")) {
+        product.classList.add("highlighted-product");
+        product.scrollIntoView({ behavior: "smooth", block: "center" });
+        // Remove highlight after animation
+        setTimeout(() => {
+          product.classList.remove("highlighted-product");
+        }, 1600);
+      }
+    }
+  }
+
+  // Run on page load (after DOM ready)
+  highlightProductFromHash();
+  // Run on hash change
+  window.addEventListener("hashchange", highlightProductFromHash);
 });

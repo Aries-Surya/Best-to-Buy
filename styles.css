@@ -566,3 +566,20 @@ footer {
         gap: 15px;
     }
 }
+
+/* Highlighted product effect */
+.highlighted-product {
+    box-shadow: 0 0 0 4px var(--primary), 0 12px 25px rgba(0, 0, 0, 0.15);
+    border: 2px solid var(--primary);
+    animation: highlight-fade 1.5s;
+}
+
+@keyframes highlight-fade {
+    0% {
+        box-shadow: 0 0 0 8px var(--primary), 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    100% {
+        box-shadow: 0 0 0 4px var(--primary), 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+}
