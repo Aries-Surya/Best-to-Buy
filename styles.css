@@ -327,6 +327,11 @@ main {
     flex-direction: column;
 }
 
+.product-content h3,
+.product-content p {
+    text-align: center;
+}
+
 .product-content h3 {
     font-size: 1.2rem;
     margin-bottom: 12px;
