@@ -2,268 +2,217 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <link rel="icon" href="icons/Best_to_Buy_Logo-removebg.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description"
-        content="Amazon Affiliate Marketing Website showcasing top products with affiliate links." />
-    <meta name="author" content="Surya Prakash G" />
-    <title>Best to buy</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <meta name="description" content="Amazon Affiliate Marketing Website showcasing top products with affiliate links.">
+    <meta name="author" content="Surya Prakash G">
+    <title>Best to Buy</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <script src="script.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 
 <body>
     <header>
-        <div style="text-align:center;">
-            <img src="icons/Best_to_Buy_Logo-removebg.png" alt="Best to Buy Logo"
-                style="height:48px; vertical-align:middle; margin-right:10px;">
-            <h1 style="display:inline-block; vertical-align:middle; margin:0;">Amazing Deals & Products</h1>
+        <div class="logo-container">
+            <img src="icons/Best_to_Buy_Logo-removebg.png" alt="Best to Buy Logo">
+            <h1>Best to Buy - Amazing Deals & Products</h1>
         </div>
-        <div class="toggle-container">
-            <input type="checkbox" class="checkbox" id="checkbox">
-            <label for="checkbox" class="checkbox-label">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
-                <span class="ball"></span>
-            </label>
+        <div class="header-actions">
+            <a href="https://t.me/besttobuyhunt" target="_blank" rel="noopener noreferrer" class="telegram-link">
+                <i class="fab fa-telegram-plane"></i> Join Telegram
+            </a>
+            <div class="toggle-container">
+                <input type="checkbox" class="checkbox" id="checkbox">
+                <label for="checkbox" class="checkbox-label">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                    <span class="ball"></span>
+                </label>
+            </div>
         </div>
     </header>
+
     <main>
-        <div class="telegram-header-link" style="text-align:center; margin: 10px 0;">
-            <a href="https://t.me/besttobuyhunt" target="_blank" rel="noopener noreferrer" class="telegram-link">
-                <i class="fab fa-telegram-plane"></i> Join our Telegram Channel
-            </a>
-        </div>
         <section id="featured-product" aria-label="Featured Product">
-            <h2>Featured Products</h2>
-            <article>
-                <div class="image-container">
-                    <img id="featured-image" src="https://m.media-amazon.com/images/I/51oMWaW7tKL._SL1500_.jpg"
-                        alt="Featured Product Image" loading="lazy" />
+            <div class="section-header">
+                <h2>Featured Products</h2>
+            </div>
+            <div class="featured-container">
+                <div class="featured-slide">
+                    <div class="featured-image">
+                        <img src="https://m.media-amazon.com/images/I/61R3VKYEwlL._SL1100_.jpg" alt="Featured Product"
+                            loading="lazy">
+                    </div>
+                    <div class="featured-content">
+                        <h3>Weight Machine for Kitchen</h3>
+                        <p>Digital Scale with LCD Display, Scale for Home Baking, Cooking & Balance Diet. Weighing
+                            Machine with capacity 10Kg with back light</p>
+                        <a href="https://amzn.to/43eDESg" target="_blank" rel="noopener noreferrer" class="btn">Buy Now
+                            on Amazon</a>
+                    </div>
                 </div>
-                <h2>OnePlus Nord Buds 2r</h2>
-                <p>True Wireless in Ear Earbuds with Mic, 12.4mm Drivers, Playback:Upto 38hr case,4-Mic Design, IP55
-                    Rating</p>
-                <a href="https://amzn.to/4d8CNFU" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-            </article>
+            </div>
+            <div class="featured-controls">
+                <button id="prev-featured" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+                <button id="next-featured" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+            </div>
         </section>
+
         <section id="product-list" aria-label="Product List">
-            <h2>Top Products</h2>
+            <div class="section-header">
+                <h2>Top Products</h2>
+            </div>
             <div class="product-grid">
+                <!-- Product 1 -->
                 <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/W/MEDIAX_1215821-T1/images/I/61R3VKYEwlL._SL1100_.jpg"
-                        alt="Weight Machine for Kitchen" loading="lazy" />
-                    <h2>Weight Machine for Kitchen</h2>
-                    <p>Digital Scale with LCD Display, Scale for Home Baking, Cooking & Balance Diet. Weighing Machine with capacity 10Kg with back light</p>
-                    <a href="https://amzn.to/43eDESg" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/51oMWaW7tKL._SL1500_.jpg"
+                            alt="OnePlus Nord Buds 2r" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>OnePlus Nord Buds 2r</h3>
+                        <p>True Wireless in Ear Earbuds with Mic, 12.4mm Drivers, Playback:Upto 38hr case,4-Mic Design,
+                            IP55 Rating</p>
+                        <a href="https://amzn.to/4d8CNFU" target="_blank" rel="noopener noreferrer" class="btn">Buy
+                            Now</a>
+                    </div>
                 </article>
+
+                <!-- Product 2 -->
                 <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/51hetICdPZL.jpg"
-                        alt="Consistent Laser Toner Cartridge(CTTC088A)" loading="lazy" />
-                    <h2>Consistent Laser Toner Cartridge(CTTC088A)</h2>
-                    <p>Compatible with HP Laserjet Printer P1007, P1106, P1108, P1008, M1213nf MFP, M1136 MFP, M126nw
-                        MFP, M1218nfs, M128fw MFP, M128fn MFP</p>
-                    <a href="https://amzn.to/43ryHV9" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/61R3VKYEwlL._SL1100_.jpg"
+                            alt="Weight Machine for Kitchen" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>Weight Machine for Kitchen</h3>
+                        <p>Digital Scale with LCD Display, Scale for Home Baking, Cooking & Balance Diet. Weighing
+                            Machine with capacity 10Kg with back light</p>
+                        <a href="https://amzn.to/43eDESg" target="_blank" rel="noopener noreferrer" class="btn">Buy
+                            Now</a>
+                    </div>
                 </article>
+
+                <!-- Product 3 -->
                 <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/71KgNbsM3-L._SL1500_.jpg"
-                        alt="HP Laserjet Pro P1108 Plus Single Function Monochrome Laser Printer" loading="lazy" />
-                    <h2>HP Laserjet Pro P1108 Plus Laser Printer</h2>
-                    <p>Bluetooth 5.0 Wireless Gaming Headphones with RGB Lights, Dual 40mm Drivers, 3.5mm Aux, USB-C
-                        Charging, Mic, 30 Hours Playtime</p>
-                    <a href="https://amzn.to/3ZcK8ij" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/51hetICdPZL.jpg"
+                            alt="Consistent Laser Toner Cartridge(CTTC088A)" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>Consistent Laser Toner Cartridge(CTTC088A)</h3>
+                        <p>Compatible with HP Laserjet Printer P1007, P1106, P1108, P1008, M1213nf MFP, M1136 MFP,
+                            M126nw MFP, M1218nfs, M128fw MFP, M128fn MFP</p>
+                        <a href="https://amzn.to/43ryHV9" target="_blank" rel="noopener noreferrer" class="btn">Buy
+                            Now</a>
+                    </div>
                 </article>
+
+                <!-- Product 4 -->
                 <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/W/MEDIAX_1215821-T1/images/I/715kF0XQMEL._SL1500_.jpg"
-                        alt="Bosch 2608590090 " loading="lazy" />
-                    <h2>Bosch 2608590090 </h2>
-                    <p>Masonry Drill Bit Set (5-Pieces), Alloy Steel, Straight</p>
-                    <a href="https://amzn.to/4dSdvfH" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/71KgNbsM3-L._SL1500_.jpg"
+                            alt="HP Laserjet Pro P1108 Plus Laser Printer" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>HP Laserjet Pro P1108 Plus Laser Printer</h3>
+                        <p>Bluetooth 5.0 Wireless Gaming Headphones with RGB Lights, Dual 40mm Drivers, 3.5mm Aux, USB-C
+                            Charging, Mic, 30 Hours Playtime</p>
+                        <a href="https://amzn.to/3ZcK8ij" target="_blank" rel="noopener noreferrer" class="btn">Buy
+                            Now</a>
+                    </div>
                 </article>
+
                 <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/41DLZJLI2-L._SL1500_.jpghttps://m.media-amazon.com/images/I/41DLZJLI2-L._SL1500_.jpg"
-                        alt="DeperAI 65W 3-in-1 Fast Charger Adapter" loading="lazy" />
-                    <h2>DeperAI 65W 3-in-1 Fast Charger Adapter</h2>
-                    <p>Compatible with iPhone, Samsung, Realme, Redmi, Android, Oppo, Vivo, iPad, and Others, Wall
-                        Adapter GaN III PD3.0 Charger, Supports UFCS, Wrap (Yellow)</p>
-                    <a href="https://amzn.to/4kuFxAa" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/W/MEDIAX_1215821-T1/images/I/715kF0XQMEL._SL1500_.jpg"
+                            alt="Bosch 2608590090" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>Bosch 2608590090</h3>
+                        <p>Masonry Drill Bit Set (5-Pieces), Alloy Steel, Straight</p>
+                        <a href="https://amzn.to/4dSdvfH" target="_blank" rel="noopener noreferrer" class="btn">Buy
+                            Now</a>
+                    </div>
                 </article>
+
                 <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/51YoORnloXL._SL1500_.jpg"
-                        alt="DeperAI 65W Type C Adapter[MFi-Certified]" loading="lazy" />
-                    <h2>DeperAI 65W Type C Adapter[MFi-Certified]</h2>
-                    <p>PD3.0 GaN III Type C Charger, Compatible with Laptop, Tablet, iPhone 16 Pro/15, Samsung Galaxy
-                        S23 Ultra/S22 and More Type C Devices, Supports UFCS(Blue)</p>
-                    <a href="https://www.amazon.in/dp/B0DN1HSRMG/ref=cm_sw_r_as_gl_apa_gl_i_SQANW410NQ7EH784BKS1?linkCode=ml1&tag=suryainformat-21"
-                        target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/41DLZJLI2-L._SL1500_.jpg"
+                            alt="DeperAI 65W 3-in-1 Fast Charger Adapter" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>DeperAI 65W 3-in-1 Fast Charger Adapter</h3>
+                        <p>Compatible with iPhone, Samsung, Realme, Redmi, Android, Oppo, Vivo, iPad, and Others, Wall
+                            Adapter GaN III PD3.0 Charger, Supports UFCS, Wrap (Yellow)</p>
+                        <a href="https://amzn.to/4kuFxAa" target="_blank" rel="noopener noreferrer" class="btn">Buy
+                            Now</a>
+                    </div>
                 </article>
+
                 <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/61Qaxl7WQ3L._SL1001_.jpg"
-                        alt="Universal Digital Lcd Battery Tester" loading="lazy" />
-                    <h2>Universal Digital Lcd Battery Tester</h2>
-                    <p>Testing 9V To 1.5V C Aa Aaa Normal Alkaline Rechargeable Batteries</p>
-                    <a href="https://amzn.to/4mr5AKq" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/51YoORnloXL._SL1500_.jpg"
+                            alt="DeperAI 65W Type C Adapter" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>DeperAI 65W Type C Adapter</h3>
+                        <p>PD3.0 GaN III Type C Charger, Compatible with Laptop, Tablet, iPhone 16 Pro/15, Samsung
+                            Galaxy S23 Ultra/S22 and More Type C Devices, Supports UFCS(Blue)</p>
+                        <a href="https://www.amazon.in/dp/B0DN1HSRMG/ref=cm_sw_r_as_gl_apa_gl_i_SQANW410NQ7EH784BKS1?linkCode=ml1&tag=suryainformat-21"
+                            target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
+                    </div>
                 </article>
+
+                <!-- Product 8 -->
                 <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/61gZDbBtXfL._SL1500_.jpg"
-                        alt="LG 29WQ500 (29 inch) UltraWide" loading="lazy" />
-                    <h2>LG 29WQ500 (29 inch) UltraWide</h2>
-                    <p>FHD (2560 x 1080) IPS Monitor with AMD FreeSync™, 100Hz, 1ms, HDR10, OnScreen Control & Dual
-                        Controller, 3-Side Virtually Borderless, Dynamic Action Sync - Black</p>
-                    <a href="https://amzn.to/3FgSbDL" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/61yNsuivQML._SL1500_.jpg"
-                        alt="CORSAIR Vengeance 16GB RAM" loading="lazy" />
-                    <h2>CORSAIR Vengeance 16GB RAM</h2>
-                    <p>DDR5 DRAM 5200MHz Memory Kit Black CMK16GX5M1B5200C40</p>
-                    <a href="https://amzn.to/43h7mou" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/516dtCZkH0L._SL1181_.jpg" alt="Steam Iron for Clothes"
-                        loading="lazy" />
-                    <h2>Steam Iron for Clothes</h2>
-                    <p>Hamilton Beach Professional Garment Steamer, 1740Watt Fast Heat Up, Turbo Steam Mode, Detachable
-                        Fabric Brush, Large 300ml Water Tank, Ergonomic Handle, 2m Cord</p>
-                    <a href="https://amzn.to/3S4lXyn" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/61R5uHK97NL._SL1500_.jpg"
-                        alt="HomeMate® Wi-Fi Smart IR Control Hub" loading="lazy" />
-                    <h2>HomeMate® Wi-Fi Smart IR Control Hub</h2>
-                    <p>Smart Air Conditioner Remote | Compatible with Alexa, Google Home | All in One Infrared Remote
-                        for Smart Home</p>
-                    <a href="https://amzn.to/3S9nm6U" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/71Ap6wOc1-L._SL1500_.jpg"
-                        alt="Acer RS272 W 27 Inch Smart Monitor" loading="lazy" />
-                    <h2>Acer RS272 W 27 Inch Smart Monitor</h2>
-                    <p>WebOS I iOT Device I Airplay, Miracast, Wireless Mirroring, Bluetooth Support I HDR10 I Ergo
-                        Stand I Remote Control I Stereo Speakers</p>
-                    <a href="https://amzn.to/43yW93R" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/51lCcCnY6DL._SL1080_.jpg"
-                        alt="HomeMate WiFi 4 Node Smart Switch" loading="lazy" />
-                    <h2>HomeMate WiFi 4 Node Smart Switch</h2>
-                    <p>No Hub Required | Retro Fit with Manual Control | Home Automation | Works with Amazon Alexa,
-                        Google Assistant & Siri</p>
-                    <a href="https://amzn.to/3GYkura" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/51HceuF9KpL.jpg"
-                        alt="GADITES 100A Digital Energy Meter" loading="lazy" />
-                    <h2>GADITES 100A Digital Energy Meter</h2>
-                    <p>6 in 1 Latest V2.0 GEN | Frequency Active Power Factor Current Ampere Voltage Monitoring Device
-                        with Colorful LCD Display, Monitor Power Consumption_With Mount</p>
-                    <a href="https://amzn.to/43qnFzt" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/61xbUV8001S._SL1500_.jpg"
-                        alt="HomeMate® Wi-Fi Smart 4 Gang Touch Switch" loading="lazy" />
-                    <h2>HomeMate® Wi-Fi Smart 4 Gang Touch Switch</h2>
-                    <p>No Hub Required | Works with Amazon Alexa, Google Assistant & Siri</p>
-                    <a href="https://amzn.to/3S5XAAv" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/71zY76oIZXL._SL1500_.jpg" alt="Portronics Toad One"
-                        loading="lazy" />
-                    <h2>Portronics Toad One</h2>
-                    <p> Bliuetooth mouse with 2.4 GHz & BT 5.3 Dual Wireless, 6 Buttons, Rechargeable, RGB Lights,
-                        Connect 3 Devices, Ergonomic Design for Laptop, Smartphone, Tablet (Black</p>
-                    <a href="https://amzn.to/42ZfN99" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/71H13b5cWnL._SL1500_.jpg"
-                        alt="HealthSense Bluetooth BMI Weight Machine For Body Weight," loading="lazy" />
-                    <h2>HealthSense Bluetooth BMI Weight Machine For Body Weight,</h2>
-                    <p>Digital Body Fat Analyzer & Smart Body Composition Scale With Mobile App, 12 Body Parameters, LED
-                        Display & 1 Year Warranty-BS161, 150Kg</p>
-                    <a href="https://amzn.to/3S4lXyn" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/61Gc3zDikmL._SL1500_.jpg" alt="RapidRadio RFID "
-                        loading="lazy" />
-                    <h2>RapidRadio RFID </h2>
-                    <p>RRHFT10 13.56 MHz ISO15693 ISO18000-3 ICODE SLIX HF RFID Wet Inlay Label Tag -
-                        DIA-25 mm, Pack of 1013.56 MHz ISO15693 ISO18000-3 ICODE SLIX HF RFID Wet Inlay Label Tag -
-                        DIA-25 mm, Pack of 10</p>
-                    <a href="https://amzn.to/43h9mNx" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/811LCu2VTbL._SL1500_.jpg" alt="AmazonBasics 51-Piece"
-                        loading="lazy" />
-                    <h2>AmazonBasics 51-Piece</h2>
-                    <p> Precision Screwdriver Bit Set, 17.1 x 9.7 x 2.8 cm</p>
-                    <a href="https://amzn.to/4j3SEXQ" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/51oJrKaJGTL._SL1080_.jpg"
-                        alt="Tapo P110 16A Wi-Fi Smart Plug" loading="lazy" />
-                    <h2>Tapo P110 16A Wi-Fi Smart Plug</h2>
-                    <p>Energy Monitoring | Suitable for Large Appliances like Geysers, Microwave Ovens, Air Conditioners
-                        (Works with Alexa and Google Assistant)| 4-Way Safety Protection</p>
-                    <a href="https://www.amazon.in/dp/B0CH3N4D3X/ref=cm_sw_r_as_gl_apa_gl_i_FARPJH8PCDDJN03QHKKD?linkCode=ml1&tag=suryainformat-21"
-                        target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/71MFoXmeDtL._SL1500_.jpg"
-                        alt="ASUS Vivobook Go 15 (OLED) 2023" loading="lazy" />
-                    <h3>ASUS Vivobook Go 15 (OLED) 2023</h3>
-                    <p>AMD Ryzen 3 7320U, 15.6" (39.62 cm) FHD OLED, Thin & Light Laptop (8GB/512GB SSD/Windows
-                        11/Office 2021/Backlit Keyboard/Cool Silver/1.63 kg), E1504FA-LK321WS</p>
-                    <a href="https://amzn.to/4db30DP" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/51CJ-VumQwL._SL1000_.jpg"
-                        alt="TP-Link UE300C USB Type-C to RJ45" loading="lazy" />
-                    <h3>TP-Link UE300C USB Type-C to RJ45</h3>
-                    <p>Gigabit Ethernet Network Adapter/RJ45 LAN Wired Adapter, Plug
-                        & Play, USB 3.0</p>
-                    <a href="https://amzn.to/3ZeZKS6" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/71ERwALONxL._SL1500_.jpg" alt="Product 2 Image"
-                        loading="lazy" />
-                    <h3>Wallet Finder RFID Blocking Card</h3>
-                    <p>IP68 Item Tracker Works with Apple Find My APP & Network with
-                        Recharge Clip (iOS Only)</p>
-                    <a href="https://amzn.to/44teh04" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/515wOKuebEL._SL1103_.jpg" alt="Product 3 Image"
-                        loading="lazy" />
-                    <h3>RFID Protected Aluminum Card Holder</h3>
-                    <p>Pop Up Jacket Debit/Credit/ATM (Unisex)</p>
-                    <a href="https://amzn.to/3RYNHo3" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
-                </article>
-                <article class="product-item">
-                    <img src="https://m.media-amazon.com/images/I/61RGTBUUagL._SL1200_.jpg" alt="Product 3 Image"
-                        loading="lazy" />
-                    <h3>Portronics Konnect 240C 240W</h3>
-                    <p>Unbreakable Nylon Braided, Fast Charging Cable 2M
-                        Long, Supports Laptop and All Smartphones</p>
-                    <a href="https://amzn.to/4iYYQ3q" target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
+                    <div class="product-image">
+                        <img src="https://m.media-amazon.com/images/I/61Qaxl7WQ3L._SL1001_.jpg"
+                            alt="Universal Digital Lcd Battery Tester" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>Universal Digital Lcd Battery Tester</h3>
+                        <p>Testing 9V To 1.5V C Aa Aaa Normal Alkaline Rechargeable Batteries</p>
+                        <a href="https://amzn.to/4mr5AKq" target="_blank" rel="noopener noreferrer" class="btn">Buy
+                            Now</a>
+                    </div>
                 </article>
             </div>
         </section>
     </main>
+
     <footer>
         <div class="footer-container">
-            <div class="telegram-header-link" style="text-align:center; margin: 10px 0;">
-                <a href="https://t.me/besttobuyhunt" target="_blank" rel="noopener noreferrer" class="telegram-link">
-                    <i class="fab fa-telegram-plane"></i> Join our Telegram Channel
-                </a>
+            <div class="footer-logo">Best to Buy</div>
+            <p class="disclaimer">This site contains product affiliate links. We may receive a commission if you make a
+                purchase after clicking on one of these links.</p>
+
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="https://suryaprakash-portfolio.vercel.app/">About Us</a>
+                <a href="https://suryaprakash-portfolio.vercel.app/#contact">Contact</a>
             </div>
-            <p>This site contains product affiliate links. We may receive a commission if you make a purchase after
-                clicking on one of these links.</p>
+
+            <a href="https://t.me/besttobuyhunt" target="_blank" rel="noopener noreferrer" class="telegram-link"
+                style="margin-top: 20px;">
+                <i class="fab fa-telegram-plane"></i> Join our Telegram Channel
+            </a>
+
+            <!-- <div class="copyright">
+                &copy; 2025 Best to Buy. All rights reserved.
+            </div> -->
         </div>
     </footer>
+
     <button id="scrollToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
-    <script src="script.js"></script>
+    <div id="toast-popup">Product link copied to clipboard!</div>
 </body>
 
 </html>

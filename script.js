@@ -1,88 +1,285 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Automatically assign unique IDs to each product-item
-  const products = document.querySelectorAll(".product-item");
-  products.forEach((item, idx) => {
-    item.id = "product-" + (idx + 1);
-  });
+  // Dark Mode Toggle
+  const checkbox = document.getElementById("checkbox");
+  const body = document.body;
 
-  // Scroll to product if hash is present in URL and highlight it
-  if (window.location.hash) {
-    const target = document.querySelector(window.location.hash);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-      target.classList.add("highlighted-product");
-      setTimeout(() => {
-        target.classList.remove("highlighted-product");
-      }, 2500); // Highlight for 2.5 seconds
-    }
+  // Set dark mode as default unless user has a saved preference
+  let darkMode = localStorage.getItem("darkMode");
+  if (darkMode === null) {
+    body.classList.add("dark");
+    checkbox.checked = true;
+    localStorage.setItem("darkMode", true);
+  } else if (darkMode === "true") {
+    body.classList.add("dark");
+    checkbox.checked = true;
+  } else {
+    body.classList.remove("dark");
+    checkbox.checked = false;
   }
 
-  // Lightbox functionality
-  const productImages = document.querySelectorAll(
-    ".product-item img, #featured-image"
-  );
-  productImages.forEach((img) => {
-    img.addEventListener("click", () => {
-      const overlay = document.createElement("div");
-      overlay.id = "lightbox-overlay";
-      overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background-color: rgba(0,0,0,0.8);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 1000;
-                cursor: pointer;
-            `;
-
-      const lightboxImage = document.createElement("img");
-      lightboxImage.src = img.src;
-      lightboxImage.alt = img.alt;
-      lightboxImage.style.cssText = `
-                max-width: 90%;
-                max-height: 90%;
-                border-radius: 8px;
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            `;
-
-      overlay.appendChild(lightboxImage);
-      overlay.addEventListener("click", () =>
-        document.body.removeChild(overlay)
-      );
-      document.body.appendChild(overlay);
-    });
-  });
-
-  // Dark mode persistence
-  const checkbox = document.getElementById("checkbox");
-  const darkMode = localStorage.getItem("darkMode") === "true";
-
-  document.body.classList.toggle("dark", darkMode);
-  checkbox.checked = darkMode;
-
   checkbox.addEventListener("change", () => {
-    document.body.classList.toggle("dark");
+    body.classList.toggle("dark");
     localStorage.setItem("darkMode", checkbox.checked);
   });
 
   // Scroll to top button
   const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
   window.addEventListener("scroll", () => {
-    scrollToTopBtn.style.display = window.pageYOffset > 100 ? "flex" : "none";
+    if (window.pageYOffset > 300) {
+      scrollToTopBtn.style.display = "flex";
+    } else {
+      scrollToTopBtn.style.display = "none";
+    }
   });
 
   scrollToTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   });
 
-  // Affiliate link tracking
-  document.body.addEventListener("click", (event) => {
-    if (event.target.matches("a.btn")) {
-      console.log(`Affiliate link clicked: ${event.target.href}`);
+  // Toast notification
+  const toast = document.getElementById("toast-popup");
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3000);
+  }
+
+  // Featured products slider
+  const featuredSlides = [
+    {
+      title: "OnePlus Nord Buds 2r",
+      desc: "True Wireless in Ear Earbuds with Mic, 12.4mm Drivers, Playback:Upto 38hr case,4-Mic Design, IP55 Rating",
+      image: "https://m.media-amazon.com/images/I/51oMWaW7tKL._SL1500_.jpg",
+      link: "https://amzn.to/4d8CNFU",
+    },
+    {
+      title: "Weight Machine for Kitchen",
+      desc: "Digital Scale with LCD Display, Scale for Home Baking, Cooking & Balance Diet. Weighing Machine with capacity 10Kg with back light",
+      image: "https://m.media-amazon.com/images/I/61R3VKYEwlL._SL1100_.jpg",
+      link: "https://amzn.to/43eDESg",
+    },
+    {
+      title: "HP Laserjet Pro P1108 Plus Laser Printer",
+      desc: "Bluetooth 5.0 Wireless Gaming Headphones with RGB Lights, Dual 40mm Drivers, 3.5mm Aux, USB-C Charging, Mic, 30 Hours Playtime",
+      image: "https://m.media-amazon.com/images/I/71KgNbsM3-L._SL1500_.jpg",
+      link: "https://amzn.to/3ZcK8ij",
+    },
+  ];
+
+  let currentSlide = 0;
+  const featuredImage = document.querySelector(".featured-image img");
+  const featuredTitle = document.querySelector(".featured-content h3");
+  const featuredDesc = document.querySelector(".featured-content p");
+  const featuredLink = document.querySelector(".featured-content .btn");
+
+  // Add share link to featured-container for current featured product
+  const featuredContainer = document.querySelector(".featured-container");
+  if (featuredContainer && !featuredContainer.querySelector(".share-link")) {
+    const shareLink = document.createElement("a");
+    shareLink.className = "share-link";
+    // Initially set to first featured product anchor link
+    const getAnchorLink = (title) =>
+      `${window.location.origin + window.location.pathname}#${title
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "")}`;
+    shareLink.href = getAnchorLink(featuredSlides[0].title);
+    shareLink.innerHTML = '<i class="fas fa-link"></i>';
+    shareLink.style.position = "absolute";
+    shareLink.style.top = "18px";
+    shareLink.style.right = "18px";
+    shareLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      const current = featuredSlides[currentSlide];
+      const anchorLink = getAnchorLink(current.title);
+      navigator.clipboard.writeText(anchorLink).then(() => {
+        if (typeof showToast === "function") {
+          showToast(`Link for \"${current.title}\" copied to clipboard!`);
+        } else {
+          alert(`Link for \"${current.title}\" copied to clipboard!`);
+        }
+      });
+    });
+    featuredContainer.style.position = "relative";
+    featuredContainer.appendChild(shareLink);
+  }
+
+  // Update share link in featured-container on slide change
+  function updateFeaturedShareLink() {
+    const shareLink = featuredContainer.querySelector(".share-link");
+    if (shareLink) {
+      const anchorLink = `${
+        window.location.origin + window.location.pathname
+      }#${featuredSlides[currentSlide].title
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "")}`;
+      shareLink.href = anchorLink;
+    }
+  }
+
+  function updateFeaturedSlide() {
+    const slide = featuredSlides[currentSlide];
+    featuredImage.src = slide.image;
+    featuredImage.alt = slide.title;
+    featuredTitle.textContent = slide.title;
+    featuredDesc.textContent = slide.desc;
+    featuredLink.href = slide.link;
+    updateFeaturedShareLink();
+  }
+
+  // Auto slideshow logic
+  let autoSlideInterval = setInterval(() => {
+    currentSlide = (currentSlide + 1) % featuredSlides.length;
+    updateFeaturedSlide();
+  }, 4000);
+
+  function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => {
+      currentSlide = (currentSlide + 1) % featuredSlides.length;
+      updateFeaturedSlide();
+    }, 4000);
+  }
+
+  document.getElementById("next-featured").addEventListener("click", () => {
+    currentSlide = (currentSlide + 1) % featuredSlides.length;
+    updateFeaturedSlide();
+    resetAutoSlide();
+  });
+
+  document.getElementById("prev-featured").addEventListener("click", () => {
+    currentSlide =
+      (currentSlide - 1 + featuredSlides.length) % featuredSlides.length;
+    updateFeaturedSlide();
+    resetAutoSlide();
+  });
+
+  // Initialize
+  updateFeaturedSlide();
+
+  // Product card animation on scroll
+  const productItems = document.querySelectorAll(".product-item");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = "translateY(0)";
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  productItems.forEach((item) => {
+    item.style.opacity = 0;
+    item.style.transform = "translateY(20px)";
+    item.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+    observer.observe(item);
+  });
+
+  // Copy link functionality
+  const copyLinkButtons = document.querySelectorAll(".copy-link-btn");
+  copyLinkButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const productCard = button.closest(".product-item");
+      const productName = productCard.querySelector("h3").textContent;
+      showToast(`Link for "${productName}" copied to clipboard!`);
+    });
+  });
+
+  // Hide header on scroll down (mobile only)
+  let lastScrollTop = 0;
+  const header = document.querySelector("header");
+  function handleHeaderScroll() {
+    if (window.innerWidth > 992) {
+      header.style.transform = "";
+      header.style.transition = "";
+      return;
+    }
+    let st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st > lastScrollTop && st > 60) {
+      // Scroll down
+      header.style.transform = "translateY(-100%)";
+      header.style.transition = "transform 0.3s";
+    } else {
+      // Scroll up
+      header.style.transform = "translateY(0)";
+      header.style.transition = "transform 0.3s";
+    }
+    lastScrollTop = st <= 0 ? 0 : st;
+  }
+  window.addEventListener("scroll", handleHeaderScroll);
+  window.addEventListener("resize", handleHeaderScroll);
+
+  // Auto-generate product id and share link for each product
+  document.querySelectorAll(".product-item").forEach((item) => {
+    const h3 = item.querySelector("h3");
+    if (h3) {
+      // Generate id: lowercase, replace spaces and non-alphanumerics with hyphens
+      const id = h3.textContent
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+      item.id = id;
+      // Add share link icon if not present
+      if (!item.querySelector(".share-link")) {
+        const shareLink = document.createElement("a");
+        shareLink.className = "share-link";
+        shareLink.href = `http://127.0.0.1:5500/index.html#${id}`;
+        shareLink.innerHTML = '<i class="fas fa-link"></i>';
+        shareLink.addEventListener("click", function (e) {
+          e.preventDefault();
+          navigator.clipboard.writeText(shareLink.href).then(() => {
+            if (typeof showToast === "function") {
+              showToast("Product link copied!");
+            } else {
+              // fallback toast
+              alert("Product link copied!");
+            }
+          });
+        });
+        item.insertBefore(shareLink, item.firstChild);
+      }
     }
   });
+
+  // --- Highlight product on hash navigation ---
+  function highlightProductFromHash() {
+    // Remove highlight from any previously highlighted product
+    document.querySelectorAll(".highlighted-product").forEach((el) => {
+      el.classList.remove("highlighted-product");
+    });
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+      const id = hash.slice(1);
+      const product = document.getElementById(id);
+      if (product && product.classList.contains("product-item")) {
+        product.classList.add("highlighted-product");
+        product.scrollIntoView({ behavior: "smooth", block: "center" });
+        // Remove highlight after animation
+        setTimeout(() => {
+          product.classList.remove("highlighted-product");
+        }, 1600);
+      }
+    }
+  }
+
+  // Run on page load (after DOM ready)
+  highlightProductFromHash();
+  // Run on hash change
+  window.addEventListener("hashchange", highlightProductFromHash);
 });
